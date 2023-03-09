@@ -1,22 +1,18 @@
 fun main() {
     //set the input
-    reachableFunction(10986487)
+    reachableFunction(1098)
 }
 
 tailrec fun removeZeros(x: Int): Int = if (x % 10 == 0) removeZeros(x / 10) else x
 
-fun f(x: Int) = removeZeros(x +1)
+fun f(x: Int) = removeZeros(x + 1)
 
 fun reachableFunction(input: Int) {
     val reachableNumbersFrom = mutableSetOf<Int>()
-    var containsReachableNumber = false
     var x = input
-    while (!containsReachableNumber) {
-        val y = f(x)
-        if (reachableNumbersFrom.contains(y)) containsReachableNumber = true else {
-            reachableNumbersFrom.add(x)
-            x = y
-        }
+    while (!reachableNumbersFrom.contains(x)) {
+        reachableNumbersFrom.add(x)
+        x = f(x)
     }
-    println("output: ${reachableNumbersFrom.size + 1}")
+    println("${reachableNumbersFrom.size}")
 }
